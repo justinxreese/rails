@@ -2,7 +2,7 @@
 
 # Provides asynchronous purging of ActiveStorage::Blob records via ActiveStorage::Blob#purge_later.
 class ActiveStorage::PurgeJob < ActiveStorage::BaseJob
-  discard_on ActiveRecord::RecordNotFound
+  discard_on ActiveRecord::RecordNotFound, ActiveRecord::InvalidForeignKey
   retry_on ActiveRecord::Deadlocked, attempts: 10, wait: :exponentially_longer
 
   def perform(blob)
